@@ -362,13 +362,13 @@ export interface KinesisStreamInput {
   /**
    * A Kinesis Stream
    */
-  stream: IStream;
+  readonly stream: IStream;
   /**
    * Kinesis Stream approximate creation timestamp prescision
    *
    * @default ApproximateCreationDateTimePrecision.MICROSECOND
    */
-  approximateCreationDateTimePrecision?: ApproximateCreationDateTimePrecision;
+  readonly approximateCreationDateTimePrecision?: ApproximateCreationDateTimePrecision;
 };
 
 /**

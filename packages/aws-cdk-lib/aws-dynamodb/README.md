@@ -486,7 +486,6 @@ import * as kinesis from 'aws-cdk-lib/aws-kinesis';
 const app = new cdk.App();
 const stack = new cdk.Stack(app, 'Stack', { env: { region: 'us-west-2' } });
 
-const stream1 = new kinesis.Stream(stack, 'Stream1');
 const stream2 = kinesis.Stream.fromStreamArn(stack, 'Stream2', 'arn:aws:kinesis:us-east-2:123456789012:stream/my-stream');
 
 const globalTable = new dynamodb.TableV2(this, 'GlobalTable', {
@@ -500,6 +499,15 @@ const globalTable = new dynamodb.TableV2(this, 'GlobalTable', {
     },
   ],
 });
+```
+
+You can optionally configure the precision for the time and date that the record was inserted to the stream. 
+
+```ts
+const stream3 = {
+  stream: new Stream(this, 'Stream3'),
+  approximateCreationDateTimePrecision: ApproximateCreationDateTimePrecision.MILLISECOND,
+};
 ```
 
 Further reading:
