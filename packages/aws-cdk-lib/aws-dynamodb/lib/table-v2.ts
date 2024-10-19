@@ -139,7 +139,6 @@ export interface TableOptionsV2 {
   /**
    * Kinesis Data Stream to capture item level changes.
    * can supply either a Stream or a KinesisStreamInput
-   * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-table-kinesisstreamspecification.html
    * @default - no Kinesis Data Stream
    */
   readonly kinesisStream?: IStream | KinesisStreamInput;
@@ -358,7 +357,10 @@ export interface TableAttributesV2 {
    */
   readonly grantIndexPermissions?: boolean;
 }
-
+/**
+  * @param - steam kinesis data stream
+  * @param - approximateCreationDateTimePrecision Optional timestamp precision for stream records
+  */
 export interface KinesisStreamInput {
   /**
    * A Kinesis Stream
