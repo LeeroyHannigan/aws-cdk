@@ -1,5 +1,6 @@
 import { Match, Template } from '../../assertions';
-import { ArnPrincipal, PolicyDocument, PolicyStatement } from '../../aws-iam';
+import { MetricOptions, Metric } from '../../aws-cloudwatch';
+import { ArnPrincipal, Grant, IGrantable, PolicyDocument, PolicyStatement } from '../../aws-iam';
 import { Stream } from '../../aws-kinesis';
 import { Key } from '../../aws-kms';
 import { CfnDeletionPolicy, Lazy, RemovalPolicy, Stack } from '../../core';
@@ -1346,19 +1347,21 @@ describe('replica tables', () => {
   test('with per-replica kinesis stream with precision creation timestamp', () => {
     // GIVEN
     const stack = new Stack(undefined, 'Stack', { env: { region: 'us-west-2' } });
-    const kinesisStream1 = new Stream(stack, 'Stream1');
-    const kinesisStream2 = Stream.fromStreamArn(stack, 'Stream2', 'arn:aws:kinesis:us-east-1:123456789012:stream/my-stream');
+    const kinesisStream1 = {
+      stream: new Stream(stack, 'KinesisStream1'),
+      approximateCreationDateTimePrecision: ApproximateCreationDateTimePrecision.MICROSECOND,
+    };
+
+    const kinesisStream2 = new Stream(stack, 'KinesisStream2');
 
     // WHEN
     new TableV2(stack, 'GlobalTable', {
       partitionKey: { name: 'pk', type: AttributeType.STRING },
       kinesisStream: kinesisStream1,
-      kinesisPrecisionTimestamp: ApproximateCreationDateTimePrecision.MICROSECOND,
       replicas: [
         {
           region: 'us-east-1',
           kinesisStream: kinesisStream2,
-          kinesisPrecisionTimestamp: ApproximateCreationDateTimePrecision.MILLISECOND,
         },
         {
           region: 'us-east-2',
@@ -1372,8 +1375,9 @@ describe('replica tables', () => {
         {
           Region: 'us-east-1',
           KinesisStreamSpecification: {
-            StreamArn: 'arn:aws:kinesis:us-east-1:123456789012:stream/my-stream',
-            ApproximateCreationDateTimePrecision: 'MILLISECOND',
+            StreamArn: {
+              'Fn::GetAtt': ['KinesisStream2A38157CB', 'Arn'], // Use GetAtt for the second stream
+            },
           },
         },
         {
@@ -1384,10 +1388,7 @@ describe('replica tables', () => {
           Region: 'us-west-2',
           KinesisStreamSpecification: {
             StreamArn: {
-              'Fn::GetAtt': [
-                'Stream16C8F97AF',
-                'Arn',
-              ],
+              'Fn::GetAtt': ['KinesisStream1AE0A3437', 'Arn'],
             },
             ApproximateCreationDateTimePrecision: 'MICROSECOND',
           },

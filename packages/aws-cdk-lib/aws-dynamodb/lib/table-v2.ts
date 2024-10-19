@@ -138,17 +138,10 @@ export interface TableOptionsV2 {
 
   /**
    * Kinesis Data Stream to capture item level changes.
-   *
+   * can supply either a Stream or a KinesisStreamInput
    * @default - no Kinesis Data Stream
    */
-  readonly kinesisStream?: IStream;
-
-  /**
-   * Kinesis Data Stream approximate creation timestamp prescision
-   *
-   * @default ApproximateCreationDateTimePrecision.MICROSECOND
-   */
-  readonly kinesisPrecisionTimestamp?: ApproximateCreationDateTimePrecision;
+  readonly kinesisStream?: IStream | KinesisStreamInput;
 
   /**
    * Tags to be applied to the table or replica table
@@ -364,6 +357,19 @@ export interface TableAttributesV2 {
    */
   readonly grantIndexPermissions?: boolean;
 }
+
+export interface KinesisStreamInput {
+  /**
+   * A Kinesis Stream
+   */
+  stream: IStream;
+  /**
+   * Kinesis Stream approximate creation timestamp prescision
+   *
+   * @default ApproximateCreationDateTimePrecision.MICROSECOND
+   */
+  approximateCreationDateTimePrecision?: ApproximateCreationDateTimePrecision;
+};
 
 /**
  * A DynamoDB Table.
@@ -672,12 +678,7 @@ export class TableV2 extends TableBaseV2 {
     const pointInTimeRecovery = props.pointInTimeRecovery ?? this.tableOptions.pointInTimeRecovery;
     const contributorInsights = props.contributorInsights ?? this.tableOptions.contributorInsights;
     const resourcePolicy = props.resourcePolicy ?? this.tableOptions.resourcePolicy;
-    const kinesisStreamSpecification = props.kinesisStream
-      ? {
-        streamArn: props.kinesisStream.streamArn,
-        ...(props.kinesisPrecisionTimestamp && { approximateCreationDateTimePrecision: props.kinesisPrecisionTimestamp }),
-      }
-      : undefined;
+    const kinesisStream = this.resolveKinesisStream(props.kinesisStream);
 
     return {
       region: props.region,
@@ -685,7 +686,7 @@ export class TableV2 extends TableBaseV2 {
       deletionProtectionEnabled: props.deletionProtection ?? this.tableOptions.deletionProtection,
       tableClass: props.tableClass ?? this.tableOptions.tableClass,
       sseSpecification: this.encryption?._renderReplicaSseSpecification(this, props.region),
-      kinesisStreamSpecification: kinesisStreamSpecification,
+      kinesisStreamSpecification: kinesisStream,
       contributorInsightsSpecification: contributorInsights !== undefined
         ? { enabled: contributorInsights }
         : undefined,
@@ -821,7 +822,6 @@ export class TableV2 extends TableBaseV2 {
     replicaTables.push(this.configureReplicaTable({
       region: this.stack.region,
       kinesisStream: this.tableOptions.kinesisStream,
-      kinesisPrecisionTimestamp: this.tableOptions.kinesisPrecisionTimestamp,
       tags: this.tableOptions.tags,
     }));
 
@@ -948,5 +948,25 @@ export class TableV2 extends TableBaseV2 {
     if (this.localSecondaryIndexes.size === MAX_LSI_COUNT) {
       throw new Error(`You may not provide more than ${MAX_LSI_COUNT} local secondary indexes`);
     }
+  }
+
+  private resolveKinesisStream(kinesisStreamInput?: IStream | KinesisStreamInput): CfnGlobalTable.KinesisStreamSpecificationProperty | undefined {
+    if (!kinesisStreamInput) {
+      return undefined;
+    }
+
+    if ('streamArn' in kinesisStreamInput) {
+      return {
+        streamArn: kinesisStreamInput.streamArn,
+      };
+    }
+
+    if ('stream' in kinesisStreamInput) {
+      return {
+        streamArn: kinesisStreamInput.stream.streamArn,
+        approximateCreationDateTimePrecision: kinesisStreamInput.approximateCreationDateTimePrecision,
+      };
+    }
+    throw new Error('Invalid Kinesis stream input: Missing streamArn');
   }
 }

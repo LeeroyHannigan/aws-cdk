@@ -1,0 +1,16 @@
+{
+  "version": "38.0.1",
+  "testCases": {
+    "global-table-kinesis-stream/DefaultTest": {
+      "stacks": [
+        "global-table-kinesis-stream-test"
+      ],
+      "regions": [
+        "eu-west-1"
+      ],
+      "stackUpdateWorkflow": false,
+      "assertionStack": "global-table-kinesis-stream/DefaultTest/DeployAssert",
+      "assertionStackName": "globaltablekinesisstreamDefaultTestDeployAssert1282D084"
+    }
+  }
+}

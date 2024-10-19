@@ -1,0 +1,145 @@
+{
+  "version": "38.0.1",
+  "artifacts": {
+    "global-table-kinesis-stream-test.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "global-table-kinesis-stream-test.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "global-table-kinesis-stream-test": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/eu-west-1",
+      "properties": {
+        "templateFile": "global-table-kinesis-stream-test.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "notificationArns": [],
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1/a5da2a42a0b05d692af70beaf5643291a5ad41811947499186786eda471b0eff.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "global-table-kinesis-stream-test.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "global-table-kinesis-stream-test.assets"
+      ],
+      "metadata": {
+        "/global-table-kinesis-stream-test/Stream/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Stream790BDEE4"
+          }
+        ],
+        "/global-table-kinesis-stream-test/AwsCdkKinesisEncryptedStreamsUnsupportedRegions": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsCdkKinesisEncryptedStreamsUnsupportedRegions"
+          }
+        ],
+        "/global-table-kinesis-stream-test/KinesisStream1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KinesisStream1AE0A3437"
+          }
+        ],
+        "/global-table-kinesis-stream-test/Table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TableCD117FA1"
+          }
+        ],
+        "/global-table-kinesis-stream-test/Table2/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Table2DBDCD1F7"
+          }
+        ],
+        "/global-table-kinesis-stream-test/Table3/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Table3D174A7C6"
+          }
+        ],
+        "/global-table-kinesis-stream-test/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/global-table-kinesis-stream-test/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "global-table-kinesis-stream-test"
+    },
+    "globaltablekinesisstreamDefaultTestDeployAssert1282D084.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "globaltablekinesisstreamDefaultTestDeployAssert1282D084.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "globaltablekinesisstreamDefaultTestDeployAssert1282D084": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "globaltablekinesisstreamDefaultTestDeployAssert1282D084.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "notificationArns": [],
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/21fbb51d7b23f6a6c262b46a9caee79d744a3ac019fd45422d988b96d44b2a22.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "globaltablekinesisstreamDefaultTestDeployAssert1282D084.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "globaltablekinesisstreamDefaultTestDeployAssert1282D084.assets"
+      ],
+      "metadata": {
+        "/global-table-kinesis-stream/DefaultTest/DeployAssert/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/global-table-kinesis-stream/DefaultTest/DeployAssert/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "global-table-kinesis-stream/DefaultTest/DeployAssert"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
