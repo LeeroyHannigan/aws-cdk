@@ -139,6 +139,7 @@ export interface TableOptionsV2 {
   /**
    * Kinesis Data Stream to capture item level changes.
    * can supply either a Stream or a KinesisStreamInput
+   * @see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-table-kinesisstreamspecification.html
    * @default - no Kinesis Data Stream
    */
   readonly kinesisStream?: IStream | KinesisStreamInput;
