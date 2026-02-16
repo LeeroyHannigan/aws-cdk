@@ -206,7 +206,15 @@ The `TableV2MultiAccountReplica` construct:
 If the source table already exists in AWS, you cannot use automatic cross-stack references. The replica will issue a warning, and you must manually configure permissions:
 
 ```ts
-// Account 11111111111
+import * as cdk from 'aws-cdk-lib';
+
+const app = new cdk.App();
+
+// Source table in Account A
+const sourceStack = new cdk.Stack(app, 'SourceStack', {
+  env: { region: 'us-east-1', account: '111111111111' },
+});
+
 // Region us-west-2
 const sourceTable = new dynamodb.TableV2(sourceStack, 'SourceTable', {
   tableName: 'MyMultiAccountTable',
@@ -222,6 +230,8 @@ sourceTable.grants.multiAccountReplicationTo('arn:aws:dynamodb:us-east-1:2222222
 When importing a source table, the replica will issue a warning since it cannot automatically configure permissions on the imported table:
 
 ```ts
+import * as cdk from 'aws-cdk-lib';
+
 const app = new cdk.App();
 
 const replicaStack = new cdk.Stack(app, 'ReplicaStack', {
