@@ -1,5 +1,5 @@
 {
-  "version": "49.0.0",
+  "version": "50.0.0",
   "artifacts": {
     "MultiAccountSourceStackV2.assets": {
       "type": "cdk:asset-manifest",
@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::12345678:role/cdk-hnb659fds-deploy-role-12345678-eu-west-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::12345678:role/cdk-hnb659fds-cfn-exec-role-12345678-eu-west-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-12345678-eu-west-1/a42c46c9b6b7f849dc140d8d50cb60b5b0dbed28d263bd97812f5c89f91e7afd.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-12345678-eu-west-1/5fc48fc37c8211d07483bcdd9d7766e8368c7fa15ec741f25009662423ec0c81.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -37,18 +37,7 @@
         "/MultiAccountSourceStackV2/SourceTableV2": [
           {
             "type": "aws:cdk:analytics:construct",
-            "data": {
-              "tableName": "*",
-              "partitionKey": {
-                "name": "*",
-                "type": "S"
-              },
-              "sortKey": {
-                "name": "*",
-                "type": "S"
-              },
-              "removalPolicy": "destroy"
-            }
+            "data": "*"
           },
           {
             "type": "aws:cdk:hasPhysicalName",
@@ -58,19 +47,11 @@
           },
           {
             "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToResourcePolicy": [
-                {}
-              ]
-            }
+            "data": "*"
           },
           {
             "type": "aws:cdk:analytics:method",
-            "data": {
-              "addToResourcePolicy": [
-                {}
-              ]
-            }
+            "data": "*"
           }
         ],
         "/MultiAccountSourceStackV2/SourceTableV2/Resource": [
@@ -104,21 +85,21 @@
     },
     "MultiAccountReplicaStackV2": {
       "type": "aws:cloudformation:stack",
-      "environment": "aws://490940935144/ca-central-1",
+      "environment": "aws://222222222222/ca-central-1",
       "properties": {
         "templateFile": "MultiAccountReplicaStackV2.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-deploy-role-490940935144-ca-central-1",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-cfn-exec-role-490940935144-ca-central-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-490940935144-ca-central-1/502448e645d340e95ab6a5f3dba7755679ffa9170084c520b738fa018f1ea4b0.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-deploy-role-222222222222-ca-central-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-cfn-exec-role-222222222222-ca-central-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-222222222222-ca-central-1/5dfa6e09a3f5cf4319ab561bcc01ff3ac6f849db80c3c09bdff396d0f238e66f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
           "MultiAccountReplicaStackV2.assets"
         ],
         "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-lookup-role-490940935144-ca-central-1",
+          "arn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-lookup-role-222222222222-ca-central-1",
           "requiresBootstrapStackVersion": 8,
           "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
         }
@@ -501,6 +482,10 @@
             "recommendedValue": true,
             "explanation": "When enabled, nodegroupName attribute of the provisioned EKS NodeGroup will not have the cluster name prefix."
           },
+          "@aws-cdk/aws-eks:useNativeOidcProvider": {
+            "recommendedValue": true,
+            "explanation": "When enabled, EKS V2 clusters will use the native OIDC provider resource AWS::IAM::OIDCProvider instead of creating the OIDCProvider with a custom resource (iam.OpenIDConnectProvider)."
+          },
           "@aws-cdk/aws-ec2:ebsDefaultGp3Volume": {
             "userValue": true,
             "recommendedValue": true,
@@ -702,5 +687,5 @@
       }
     }
   },
-  "minimumCliVersion": "2.1100.3"
+  "minimumCliVersion": "2.1101.0"
 }

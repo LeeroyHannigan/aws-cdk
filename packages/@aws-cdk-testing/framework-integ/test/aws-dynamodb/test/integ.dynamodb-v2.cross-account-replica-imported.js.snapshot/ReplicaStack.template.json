@@ -3,7 +3,7 @@
   "ReplicaDDFB2A87": {
    "Type": "AWS::DynamoDB::GlobalTable",
    "Properties": {
-    "GlobalTableSourceArn": "arn:aws:dynamodb:eu-west-1:964157134968:table/MultiAccountGlobalTable",
+    "GlobalTableSourceArn": "arn:aws:dynamodb:eu-west-1:12345678:table/MultiAccountGlobalTable",
     "Replicas": [
      {
       "GlobalTableSettingsReplicationMode": "ENABLED",
@@ -20,8 +20,8 @@
           "Condition": {
            "StringEquals": {
             "aws:SourceAccount": [
-             "490940935144",
-             "964157134968"
+             "222222222222",
+             "12345678"
             ]
            }
           },

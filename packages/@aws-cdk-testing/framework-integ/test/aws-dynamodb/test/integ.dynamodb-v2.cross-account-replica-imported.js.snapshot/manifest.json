@@ -1,5 +1,5 @@
 {
-  "version": "49.0.0",
+  "version": "50.0.0",
   "artifacts": {
     "ReplicaStack.assets": {
       "type": "cdk:asset-manifest",
@@ -11,21 +11,21 @@
     },
     "ReplicaStack": {
       "type": "aws:cloudformation:stack",
-      "environment": "aws://490940935144/ca-central-1",
+      "environment": "aws://222222222222/ca-central-1",
       "properties": {
         "templateFile": "ReplicaStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-deploy-role-490940935144-ca-central-1",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-cfn-exec-role-490940935144-ca-central-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-490940935144-ca-central-1/1601879b49e5a610e97dab827291cc579ef5d5d6be7777132c3b90592533c1c0.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-deploy-role-222222222222-ca-central-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-cfn-exec-role-222222222222-ca-central-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-222222222222-ca-central-1/deff5a7208caabf2f50313aa86429d4cb985034ac06ee1f8be414fe481bc8a37.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
           "ReplicaStack.assets"
         ],
         "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::490940935144:role/cdk-hnb659fds-lookup-role-490940935144-ca-central-1",
+          "arn": "arn:${AWS::Partition}:iam::222222222222:role/cdk-hnb659fds-lookup-role-222222222222-ca-central-1",
           "requiresBootstrapStackVersion": 8,
           "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
         }
@@ -37,7 +37,7 @@
         "/ReplicaStack/Replica": [
           {
             "type": "aws:cdk:warning",
-            "data": "The source table is imported without a resource policy and cannot be granted multi-account replication permissions. You must manually configure multi-account replication permissions on the source table. Call sourceTable.grants.multiAccountReplicationTo('${Token[TOKEN.1233]}') on the actual source table stack. [ack: @aws-cdk/aws-dynamodb:multiAccountReplicaSourceWithoutPolicy]"
+            "data": "The source table is imported without a resource policy and cannot be granted multi-account replication permissions. You must manually configure multi-account replication permissions on the source table. Call sourceTable.grants.multiAccountReplicationTo('${Token[TOKEN.1231]}') on the actual source table stack. [ack: @aws-cdk/aws-dynamodb:multiAccountReplicaSourceWithoutPolicy]"
           },
           {
             "type": "aws:cdk:hasPhysicalName",
@@ -412,6 +412,10 @@
             "recommendedValue": true,
             "explanation": "When enabled, nodegroupName attribute of the provisioned EKS NodeGroup will not have the cluster name prefix."
           },
+          "@aws-cdk/aws-eks:useNativeOidcProvider": {
+            "recommendedValue": true,
+            "explanation": "When enabled, EKS V2 clusters will use the native OIDC provider resource AWS::IAM::OIDCProvider instead of creating the OIDCProvider with a custom resource (iam.OpenIDConnectProvider)."
+          },
           "@aws-cdk/aws-ec2:ebsDefaultGp3Volume": {
             "userValue": true,
             "recommendedValue": true,
@@ -613,5 +617,5 @@
       }
     }
   },
-  "minimumCliVersion": "2.1100.3"
+  "minimumCliVersion": "2.1101.0"
 }

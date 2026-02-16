@@ -46,7 +46,7 @@
                 {
                  "Fn::Split": [
                   ":",
-                  "arn:aws:dynamodb:ca-central-1:490940935144:table/MultiAccountGlobalTable"
+                  "arn:aws:dynamodb:ca-central-1:222222222222:table/MultiAccountGlobalTable"
                  ]
                 }
                ]
@@ -75,7 +75,7 @@
                {
                 "Fn::Split": [
                  ":",
-                 "arn:aws:dynamodb:ca-central-1:490940935144:table/MultiAccountGlobalTable"
+                 "arn:aws:dynamodb:ca-central-1:222222222222:table/MultiAccountGlobalTable"
                 ]
                }
               ]

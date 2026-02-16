@@ -20,7 +20,7 @@
           "Condition": {
            "StringEquals": {
             "aws:SourceAccount": [
-             "490940935144",
+             "222222222222",
              {
               "Fn::Select": [
                4,
