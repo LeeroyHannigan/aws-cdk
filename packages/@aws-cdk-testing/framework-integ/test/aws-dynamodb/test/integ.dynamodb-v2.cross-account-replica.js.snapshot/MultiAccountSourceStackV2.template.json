@@ -106,7 +106,25 @@
            "Service": "replication.dynamodb.amazonaws.com"
           },
           "Resource": "*",
-          "Sid": "AllowReplicationServiceReadWrite"
+          "Sid": {
+           "Fn::Join": [
+            "",
+            [
+             "AllowReplicationServiceReadWrite-",
+             {
+              "Fn::Select": [
+               4,
+               {
+                "Fn::Split": [
+                 ":",
+                 "arn:aws:dynamodb:ca-central-1:222222222222:table/MultiAccountGlobalTable"
+                ]
+               }
+              ]
+             }
+            ]
+           ]
+          }
          }
         ],
         "Version": "2012-10-17"

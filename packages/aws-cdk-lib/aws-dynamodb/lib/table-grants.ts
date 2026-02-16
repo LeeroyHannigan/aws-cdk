@@ -199,7 +199,7 @@ export class TableGrants {
     }));
 
     this.policyResource.addToResourcePolicy(new iam.PolicyStatement({
-      sid: 'AllowReplicationServiceReadWrite',
+      sid: `AllowReplicationServiceReadWrite-${arnComponents.account}`,
       actions: perms.MULTI_ACCOUNT_REPLICATION_ACTIONS,
       resources: ['*'],
       principals: [new iam.ServicePrincipal('replication.dynamodb.amazonaws.com')],
