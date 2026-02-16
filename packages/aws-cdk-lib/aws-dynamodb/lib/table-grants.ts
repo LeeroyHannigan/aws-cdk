@@ -192,7 +192,7 @@ export class TableGrants {
     }
 
     this.policyResource.addToResourcePolicy(new iam.PolicyStatement({
-      sid: 'AllowMultiAccountReplicaAssociation',
+      sid: `AllowMultiAccountReplicaAssociation-${arnComponents.account}`,
       actions: ['dynamodb:AssociateTableReplica'],
       resources: ['*'],
       principals: [new iam.AccountPrincipal(arnComponents.account)],

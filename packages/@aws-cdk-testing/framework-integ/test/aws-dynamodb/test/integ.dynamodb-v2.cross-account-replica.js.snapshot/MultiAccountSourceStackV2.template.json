@@ -57,7 +57,25 @@
            }
           },
           "Resource": "*",
-          "Sid": "AllowMultiAccountReplicaAssociation"
+          "Sid": {
+           "Fn::Join": [
+            "",
+            [
+             "AllowMultiAccountReplicaAssociation-",
+             {
+              "Fn::Select": [
+               4,
+               {
+                "Fn::Split": [
+                 ":",
+                 "arn:aws:dynamodb:ca-central-1:222222222222:table/MultiAccountGlobalTable"
+                ]
+               }
+              ]
+             }
+            ]
+           ]
+          }
          },
          {
           "Action": [
