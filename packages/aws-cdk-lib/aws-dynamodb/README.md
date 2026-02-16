@@ -206,8 +206,15 @@ The `TableV2MultiAccountReplica` construct:
 If the source table already exists in AWS, you cannot use automatic cross-stack references. The replica will issue a warning, and you must manually configure permissions:
 
 ```ts
+// Account 11111111111
+// Region us-west-2
+const sourceTable = new dynamodb.TableV2(sourceStack, 'SourceTable', {
+  tableName: 'MyMultiAccountTable',
+  partitionKey: { name: 'pk', type: dynamodb.AttributeType.STRING },
+  globalTableSettingsReplicationMode: dynamodb.GlobalTableSettingsReplicationMode.ALL,
+});
 // After replica is deployed, update source stack with the ARN
-sourceTable.grants.multiAccountReplicationTo('arn:aws:dynamodb:us-east-1:222222222222:table/ReplicaTable');
+sourceTable.grants.multiAccountReplicationTo('arn:aws:dynamodb:us-east-1:222222222222:table/MyMultiAccountTable');
 ```
 
 #### Working with Imported Tables
@@ -215,6 +222,8 @@ sourceTable.grants.multiAccountReplicationTo('arn:aws:dynamodb:us-east-1:2222222
 When importing a source table, the replica will issue a warning since it cannot automatically configure permissions on the imported table:
 
 ```ts
+const app = new cdk.App();
+
 const replicaStack = new cdk.Stack(app, 'ReplicaStack', {
   env: { region: 'us-east-1', account: '222222222222' },
 });
@@ -228,7 +237,7 @@ const importedSource = dynamodb.TableV2.fromTableArn(
 
 // Create replica - will issue a warning about missing source permissions
 const replica = new dynamodb.TableV2MultiAccountReplica(replicaStack, 'ReplicaTable', {
-  TableName: 'MyMultiAccountTable',
+  tableName: 'MyMultiAccountTable',
   replicaSourceTable: importedSource,
   globalTableSettingsReplicationMode: dynamodb.GlobalTableSettingsReplicationMode.ALL,
 });
